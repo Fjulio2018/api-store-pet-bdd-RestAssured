@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'com.avast.gradle.docker-compose' version "0.13.2"
+    id "io.freefair.lombok" version "8.4"
+}
+
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.1'
+
+    testImplementation 'io.cucumber:cucumber-java:6.2.2'
+    testImplementation 'io.cucumber:cucumber-junit:6.2.2'
+    testImplementation 'io.rest-assured:rest-assured:4.3.1'
+    testImplementation 'org.aeonbits.owner:owner:1.0.12'
+
+}
+
+String getCiReportFolder() {
+    return System.getenv('CI_REPORT_FOLDER')
+}
+
+// Defina LOCAL_REPORT antes de usá-lo em configurações de teste
+def LOCAL_REPORT = getCiReportFolder()
+
+test {
+    systemProperty "cucumber.plugin", "pretty, html:${LOCAL_REPORT}"
+}
+
+task testeApi(type: Test) {}
+
+task testeSanidadeApi(type: Test) {
+    environment "CUCUMBER_FILTER_TAGS", "@sanidade"
+    environment "CUCUMBER_PLUGIN", "pretty, html:${LOCAL_REPORT}/feature.html, " +
+            "junit:${LOCAL_REPORT}/feature.xml"
+}
+
+task testeRegressaoApi(type: Test) {
+    systemProperty "cucumber.filter.tags", "not @wip and not @quarentena and not @sanidade"
+    systemProperty "cucumber.plugin", "pretty, html:${LOCAL_REPORT}/feature.html, " +
+            "junit:${LOCAL_REPORT}/feature.xml"
+}
+
+dockerCompose.isRequiredBy(testeApi)
