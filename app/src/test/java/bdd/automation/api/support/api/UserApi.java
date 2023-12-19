@@ -1,9 +1,7 @@
-package support.api;
+package bdd.automation.api.support.api;
 
 import org.apache.http.HttpStatus;
-import org.hamcrest.core.Is;
-import steps.UserStepDefinitions;
-import support.dominio.User;
+import bdd.automation.api.support.dominio.User;
 
 import java.util.Arrays;
 import java.util.List;

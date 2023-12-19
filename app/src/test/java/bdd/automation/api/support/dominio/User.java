@@ -1,4 +1,4 @@
-package support.dominio;
+package bdd.automation.api.support.dominio;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

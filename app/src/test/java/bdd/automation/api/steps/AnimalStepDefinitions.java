@@ -1,4 +1,4 @@
-package steps;
+package bdd.automation.api.steps;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,7 +7,7 @@ import io.cucumber.java.es.Dado;
 import io.cucumber.java.it.Quando;
 import io.cucumber.java.pt.Entao;
 
-import support.dominio.Pet;
+import bdd.automation.api.support.dominio.Pet;
 
 public class AnimalStepDefinitions {
 

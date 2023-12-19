@@ -1,7 +1,7 @@
    # language: pt
 
 
-   Funcionalidade: Criação e Exibição de Usuário
+   Funcionalidade: Criacao e Exibicao de Usuario
 
 
 @deleteUser

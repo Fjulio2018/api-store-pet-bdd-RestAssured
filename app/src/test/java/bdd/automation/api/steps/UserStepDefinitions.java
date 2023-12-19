@@ -1,8 +1,8 @@
-package steps;
+package bdd.automation.api.steps;
 
 import io.cucumber.java.pt.Entao;
-import support.api.UserApi;
-import support.dominio.User;
+import bdd.automation.api.support.api.UserApi;
+import bdd.automation.api.support.dominio.User;
 import io.cucumber.java.it.Quando;
 
 

@@ -1,9 +1,8 @@
-package support.api;
+package bdd.automation.api.support.api;
 
-import io.restassured.response.ResponseBody;
 import static io.restassured.RestAssured.*;
 
-import support.dominio.Pet;
+import bdd.automation.api.support.dominio.Pet;
 
 import java.util.List;
 

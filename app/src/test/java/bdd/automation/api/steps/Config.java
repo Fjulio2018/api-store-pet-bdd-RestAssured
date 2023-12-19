@@ -1,14 +1,12 @@
-package steps;
+package bdd.automation.api.steps;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.ResponseSpecification;
-import support.api.UserApi;
+import bdd.automation.api.support.api.UserApi;
 
 public class Config {
 
