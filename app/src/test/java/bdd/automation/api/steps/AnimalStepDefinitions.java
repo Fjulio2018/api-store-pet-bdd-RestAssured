@@ -13,9 +13,9 @@ import bdd.automation.api.support.dominio.Pet;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.core.IsNot.not;
+
+
+import org.hamcrest.Matchers;
 
 public class AnimalStepDefinitions {
     private PetApi petApi;
@@ -37,20 +37,20 @@ public class AnimalStepDefinitions {
     @Quando("a pesquiso animais com status {word}")
     public void a_pesquiso_animais_com_status_available(String status) {
 
-
         existentePets = petApi.getPetByStatus(status);
-
-
-
+        System.out.println("Print da quantidade de Pets Available: " + existentePets.size());
 
 
     }
 
-    @Entao("os animais com status available sao listados")
-    public void os_animais_com_status_available_sao_listados()  {
+    @Entao("os animais com status {word} sao listados")
+    public void os_animais_com_status_available_sao_listados(String status)  {
 
-        assertThat(existentePets,is(not(empty())));
-        System.out.println("Animais existente na Base"+existentePets);
+        for (Pet pet : existentePets) {
+        assertThat(pet.getStatus(), Matchers.equalTo(status));
+            System.out.println("Print dos Status encontrados: " + pet.getStatus());
+        }
+
     }
 
 
