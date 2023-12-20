@@ -5,10 +5,10 @@
 
 
 
-      @wip
+      
      Cenario: Listar todos os animais
 
        Dado que tenha animais criados
-       Quando a requisicao e feita
-       Entao os animais sao listados
+       Quando a pesquiso animais com status available
+       Entao os animais com status available sao listados
 

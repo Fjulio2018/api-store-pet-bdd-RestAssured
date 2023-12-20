@@ -4,9 +4,6 @@ import io.cucumber.java.pt.Entao;
 import bdd.automation.api.support.api.UserApi;
 import bdd.automation.api.support.dominio.User;
 import io.cucumber.java.it.Quando;
-
-
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -16,8 +13,8 @@ public class UserStepDefinitions {
 
 
 
-    private User expectedUser = User.builder().build();
-    private UserApi userApi = new UserApi();
+    private final User expectedUser = User.builder().build();
+    private final UserApi userApi = new UserApi();
 
 
 
@@ -26,18 +23,16 @@ public class UserStepDefinitions {
     @Quando("criar um usuario")
     public void criar_um_usuario() {
 
-
         userApi.createUser(expectedUser);
-
-
     }
 
 
     @Entao("valido usuario criado")
     public void valido_usuario_criado() {
 
-        String usercreated = userApi.getUsername(expectedUser);
-        assertThat(usercreated,is(expectedUser.getUsername()));
+        String userCreated = userApi.getUsername(expectedUser);
+
+        assertThat(userCreated,is(expectedUser.getUsername()));
 
     }
 
