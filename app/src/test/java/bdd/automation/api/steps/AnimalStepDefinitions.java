@@ -37,9 +37,9 @@ public class AnimalStepDefinitions {
 
     @Quando("a pesquiso animais com status {word}")
     public void a_pesquiso_animais_com_status_available(String status) {
-        existentePets = petApi.getPetByStatus(status);
+        existentePets = petApi.getPetByList(status);
 
-        respo = petApi.getPetByStatus1(status);
+        respo = petApi.getPetByResponse(status);
         System.out.println("Print da quantidade de Pets Available: " + respo.jsonPath().getList("$").size());
 
 

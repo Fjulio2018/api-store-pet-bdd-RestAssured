@@ -4,7 +4,6 @@ import static io.restassured.RestAssured.*;
 
 import bdd.automation.api.support.dominio.Pet;
 import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -15,7 +14,7 @@ public class PetApi {
     private static final String FIND_PETS_BY_STATUS_ENDPOINT = "/v3/pet/findByStatus?status={status}";
 
 
-    public Response getPetByStatus1(String status) {
+    public Response getPetByResponse(String status) {
         RequestSpecification httpRequest = RestAssured.given();
         httpRequest.pathParam("status", status);
 
@@ -26,15 +25,7 @@ public class PetApi {
     }
 
 
-    public List<Pet> getPetByStatus(String status) {
-        String response = given()
-                .pathParam("status", status)
-                .when()
-                .get(FIND_PETS_BY_STATUS_ENDPOINT)
-                .then()
-                .extract().body().asString();
-
-        System.out.println("API Response: " + response);
+    public List<Pet> getPetByList(String status) {
 
         return given()
                 .pathParam("status", status)
