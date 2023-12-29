@@ -7,8 +7,20 @@
      Contexto:
        Dado que tenha animais criados
 
-     Cenario: Listar todos os animais
 
-       Quando a pesquiso animais com status available
-       Entao os animais com status available sao listados
+     Esquema do Cenario: Lista de animais pelo status
+
+       Quando a pesquiso animais com status <estado>
+       Entao os <quantidade> animais com status <estado> sao listados
+
+     Exemplos: Animais que podem ser listados
+       | estado   |quantidade|
+       |available |     7    |
+       | pending  |     2    |
+       |  sold    |     1    |
+
+
+
+
+
 

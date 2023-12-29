@@ -28,11 +28,7 @@ public class AnimalStepDefinitions {
     }
 
     @Dado("que tenha animais criados")
-    public void que_tenha_animais_criados() throws JsonProcessingException {
-        Pet pet = Pet.builder().build();
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(pet);
-        System.out.println("Animais Mochs: " + json);
+    public void que_tenha_animais_criados() throws JsonProcessingException 
     }
 
     @Quando("a pesquiso animais com status {word}")
@@ -48,17 +44,20 @@ public class AnimalStepDefinitions {
 
     }
 
-    @Entao("os animais com status {word} sao listados")
-    public void os_animais_com_status_available_sao_listados(String status) {
+    @Entao("os {int} animais com status {word} sao listados")
+    public void os_animais_com_status_available_sao_listados(int id, String status) {
         for (Pet pet : existentePets) {
             assertThat(pet.getStatus(), Matchers.equalTo(status));
             System.out.println("Print dos Status encontrados: " + pet.getStatus());
         }
 
-        respo.then().assertThat().body("", hasSize(7));
+        respo.then().assertThat().body("", hasSize(id));
 
 
         int statusCode = respo.getStatusCode();
         assertThat(statusCode, Matchers.equalTo(200));
     }
+
+
+
 }
