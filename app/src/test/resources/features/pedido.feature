@@ -1,11 +1,11 @@
    # language: pt
 
 
-   Funcionalidade: Criar e visualizar pedidos
+   Funcionalidade: Criar e visualizar pedido
 
 
-     Cenario: Listar pedidos com sucesso
+     Cenario: Listar pedido com sucesso
 
        Dado que tenha pedidos feitos
-       Quando Procurar por pedidos com status pending
-       Entao os pedidos com status pending serao listados
+       Quando procurar por id do pedidos
+       Entao o pedido com status placed sera apresentado
