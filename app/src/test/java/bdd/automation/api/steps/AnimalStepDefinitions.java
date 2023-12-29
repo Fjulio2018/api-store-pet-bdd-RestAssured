@@ -28,7 +28,8 @@ public class AnimalStepDefinitions {
     }
 
     @Dado("que tenha animais criados")
-    public void que_tenha_animais_criados() throws JsonProcessingException 
+    public void que_tenha_animais_criados(){
+//    "Vamos deixar o 'DADO' apenas para futoras criacoes "
     }
 
     @Quando("a pesquiso animais com status {word}")
@@ -36,7 +37,7 @@ public class AnimalStepDefinitions {
         existentePets = petApi.getPetByList(status);
 
         respo = petApi.getPetByResponse(status);
-        System.out.println("Print da quantidade de Pets Available: " + respo.jsonPath().getList("$").size());
+        System.out.println("Print da quantidade de Pets "+status+": " + respo.jsonPath().getList("$").size());
 
 
 
