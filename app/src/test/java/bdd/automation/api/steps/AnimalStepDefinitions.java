@@ -46,13 +46,13 @@ public class AnimalStepDefinitions {
     }
 
     @Entao("os {int} animais com status {word} sao listados")
-    public void os_animais_com_status_available_sao_listados(int id, String status) {
+    public void os_animais_com_status_available_sao_listados(int qnt, String status) {
         for (Pet pet : existentePets) {
             assertThat(pet.getStatus(), Matchers.equalTo(status));
             System.out.println("Print dos Status encontrados: " + pet.getStatus());
         }
 
-        respo.then().assertThat().body("", hasSize(id));
+        respo.then().assertThat().body("", hasSize(qnt));
 
 
         int statusCode = respo.getStatusCode();
