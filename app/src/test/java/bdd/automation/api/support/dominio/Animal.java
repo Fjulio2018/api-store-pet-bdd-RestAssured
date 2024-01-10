@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-public class Pet {
+public class Animal {
 
     @Builder.Default
     private int id = 252;

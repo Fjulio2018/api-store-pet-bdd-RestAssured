@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class User {
+public class Usuario {
     @Builder.Default
     private int id = 1 ;
     @Builder.Default

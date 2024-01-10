@@ -1,20 +1,20 @@
 package bdd.automation.api.steps;
 
 import io.cucumber.java.pt.Entao;
-import bdd.automation.api.support.api.UserApi;
-import bdd.automation.api.support.dominio.User;
+import bdd.automation.api.support.api.UsuarioApi;
+import bdd.automation.api.support.dominio.Usuario;
 import io.cucumber.java.it.Quando;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 
-public class UserStepDefinitions {
+public class UsuarioStepDefinitions {
 
 
 
 
-    private final User expectedUser = User.builder().build();
-    private final UserApi userApi = new UserApi();
+    private final Usuario expectedUser = Usuario.builder().build();
+    private final UsuarioApi userApi = new UsuarioApi();
 
 
 

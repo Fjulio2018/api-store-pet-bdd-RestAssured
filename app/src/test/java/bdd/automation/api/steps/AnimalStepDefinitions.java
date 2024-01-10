@@ -1,30 +1,28 @@
 package bdd.automation.api.steps;
 
-import bdd.automation.api.support.api.PetApi;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import bdd.automation.api.support.api.AnimalApi;
 
 import io.cucumber.java.es.Dado;
 import io.cucumber.java.it.Quando;
 import io.cucumber.java.pt.Entao;
 
-import bdd.automation.api.support.dominio.Pet;
+import bdd.automation.api.support.dominio.Animal;
 
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 
-import io.restassured.response.Response; // Importe a classe Response correta aqui
+import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 
 public class AnimalStepDefinitions {
-    private PetApi petApi;
-    List<Pet> existentePets;
+    private AnimalApi petApi;
+    List<Animal> existentePets;
     Response respo;
 
     public AnimalStepDefinitions() {
-        petApi = new PetApi();
+        petApi = new AnimalApi();
     }
 
     @Dado("que tenha animais criados")
@@ -40,16 +38,13 @@ public class AnimalStepDefinitions {
         System.out.println("Print da quantidade de Pets "+status+": " + respo.jsonPath().getList("$").size());
 
 
-
-
-
     }
 
     @Entao("os {int} animais com status {word} sao listados")
     public void os_animais_com_status_available_sao_listados(int qnt, String status) {
-        for (Pet pet : existentePets) {
-            assertThat(pet.getStatus(), Matchers.equalTo(status));
-            System.out.println("Print dos Status encontrados: " + pet.getStatus());
+        for (Animal animal : existentePets) {
+            assertThat(animal.getStatus(), Matchers.equalTo(status));
+            System.out.println("Print dos Status encontrados: " + animal.getStatus());
         }
 
         respo.then().assertThat().body("", hasSize(qnt));

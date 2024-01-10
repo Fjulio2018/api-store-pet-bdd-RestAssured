@@ -1,6 +1,6 @@
 package bdd.automation.api.support.api;
 
-import bdd.automation.api.support.dominio.User;
+import bdd.automation.api.support.dominio.Usuario;
 import org.apache.http.HttpStatus;
 
 import java.util.Arrays;
@@ -8,17 +8,17 @@ import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
-public class UserApi {
+public class UsuarioApi {
 
 
     private static final String CREATED_USER_ENDPOINT = "/v3/user/";
     private static final String USER_ENDPOINT = "/v3/user/{name}";
 
 
-    public UserApi() {
+    public UsuarioApi() {
     }
 
-    public void createUser(User user) {
+    public void createUser(Usuario user) {
 
         given().
                 body(user).
@@ -31,7 +31,7 @@ public class UserApi {
     }
 
 
-    public String getUsername(User user) {
+    public String getUsername(Usuario user) {
         return given().
                 pathParam("name", user.getUsername()).
         when().

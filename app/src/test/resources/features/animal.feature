@@ -14,10 +14,10 @@
        Entao os <quantidade> animais com status <estado> sao listados
 
      Exemplos: Animais que podem ser listados
-       | estado   |quantidade|
-       |available |     7    |
-       | pending  |     2    |
-       |  sold    |     1    |
+       |  estado   |quantidade|
+       | available |     7    |
+       | pending   |     2    |
+       | sold      |     1    |
 
 
 

@@ -6,12 +6,12 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
-import bdd.automation.api.support.api.UserApi;
+import bdd.automation.api.support.api.UsuarioApi;
 
 public class Config {
 
 
-    private UserApi userApi = new UserApi();
+    private UsuarioApi userApi = new UsuarioApi();
 
     @Before
     public void setup() {
