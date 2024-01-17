@@ -37,7 +37,7 @@ public class UsuarioStepDefinitions {
         usuarioApi.createUser(expectedUser);
     }
 
-    @Dado("envio dados para a criacao do usuario")
+    @Dado("que envio dados para a criacao do usuario")
     public void que_envio_dados_para_a_criacao_do_usuario(List<Map<String, String>> usuariosData) {
 
         for (Map<String, String> userData : usuariosData) {
@@ -51,8 +51,13 @@ public class UsuarioStepDefinitions {
 
             System.out.println("Este é o usuário esperado: " + usuariosData.toString());
 
-            response = usuarioApi.createUserMap((Map<String, String>) expectedUser);
+
         }
+    }
+
+    @Quando("preformo a criação dos usuarios")
+    public void preformo_a_criação_dos_usuarios() {
+        response = usuarioApi.createUserMap((Map<String, String>) expectedUser);
     }
 
     @Entao("valido os dados do usuario criado")

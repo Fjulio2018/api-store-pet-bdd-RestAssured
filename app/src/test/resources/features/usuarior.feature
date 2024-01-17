@@ -10,7 +10,7 @@ Entao valido usuario criado
 
 Esquema do Cenario: Campos obrigatórios
 
-Dado envio dados para a criacao do usuario
+Dado que envio dados para a criacao do usuario
         | username         | <username>   |
         | password         | <password>   |
         | firstName        | <firstName>  |
@@ -20,6 +20,10 @@ Dado envio dados para a criacao do usuario
         | status           | <status>     |
         | HttpStatus       | <HttpStatus> |
 
+
+
+
+Quando preformo a criação dos usuarios
 Entao valido os dados do usuario criado
 
 Exemplos:
