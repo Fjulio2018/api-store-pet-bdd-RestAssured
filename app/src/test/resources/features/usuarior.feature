@@ -24,7 +24,7 @@ Dado que envio dados para a criacao do usuario
 
 
 Quando preformo a criação dos usuarios
-Entao valido os dados do usuario criado
+Entao valido os dados do usuarios criados
 
 Exemplos:
 | username | password | firstName | lastName | email              | phone     | status | HttpStatus |
