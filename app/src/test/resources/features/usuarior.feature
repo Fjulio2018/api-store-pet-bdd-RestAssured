@@ -8,7 +8,7 @@ Cenario: Criar usuario eficaz
 Quando criar um usuario
 Entao valido usuario criado
 
-Esquema do Cenario: Campos obrigatórios
+Esquema do Cenario: Criacao e Exibicao de Usuario
 
 Dado que envio dados para a criacao do usuario
         | username         | <username>   |
