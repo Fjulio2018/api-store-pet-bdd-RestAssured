@@ -1,10 +1,13 @@
 package bdd.automation.api.support.api;
 
 import bdd.automation.api.support.dominio.Usuario;
+import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 
 import java.util.Arrays;
 import java.util.List;
+
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -22,21 +25,28 @@ public class UsuarioApi {
 
         given().
                 body(user).
-        when().
+                when().
                 post(CREATED_USER_ENDPOINT).
-         then().
+                then().
                 statusCode(HttpStatus.SC_OK);
 
 
+    }
+
+    public Response createUserMap(Map<String, String> user) {
+        return given()
+                .body(user)
+                .when()
+                .post(CREATED_USER_ENDPOINT);
     }
 
 
     public String getUsername(Usuario user) {
         return given().
                 pathParam("name", user.getUsername()).
-        when().
+                when().
                 get(USER_ENDPOINT).
-        thenReturn().
+                thenReturn().
                 path("username");
 
     }

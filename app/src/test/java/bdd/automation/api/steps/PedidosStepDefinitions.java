@@ -20,7 +20,7 @@ public class PedidosStepDefinitions {
     }
 
     @Quando("procurar por id do pedidos")
-    public void procurar_por_id_do_pedidos () {
+    public void procurar_por_id_do_pedidos() {
 
         int idDefautClas = pedido.getId();
 

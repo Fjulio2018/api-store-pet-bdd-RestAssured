@@ -29,4 +29,6 @@ public class Usuario {
     @Builder.Default
     private int userStatus = 1;
 
+    public void setStatus(int status) {
+    }
 }
