@@ -1,74 +1,82 @@
 package bdd.automation.api.steps;
 
-import bdd.automation.api.support.mapper.UsuarioMapper;
-import io.cucumber.datatable.DataTable;
-import io.cucumber.java.es.Dado;
-import io.cucumber.java.it.Data;
-import io.cucumber.java.pt.Entao;
 import bdd.automation.api.support.api.UsuarioApi;
 import bdd.automation.api.support.dominio.Usuario;
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.es.Dado;
 import io.cucumber.java.it.Quando;
+import io.cucumber.java.pt.Entao;
 import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-
-
 public class UsuarioStepDefinitions {
 
-
-
-
-    private final Usuario expectedUser = Usuario.builder().build();
     private final UsuarioApi usuarioApi = new UsuarioApi();
+    private Usuario expectedUser;
+    private List<Usuario> createdUsers;
+    private List<Response> responses;
+    Response useResponse;
+    String expectedContentType = "application/json";
 
-    private Response response;
-
-
-
-
-
-    @Quando("criar um usuario")
-    public void criar_um_usuario() {
-        usuarioApi.createUser(expectedUser);
-    }
 
     @Dado("que envio dados para a criacao do usuario")
-    public void que_envio_dados_para_a_criacao_do_usuario(List<Map<String, String>> usuariosData) {
+    public void que_envio_dados_para_a_criacao_do_usuario(DataTable dataTable) {
+        List<Map<String, String>> usuariosData = dataTable.asMaps(String.class, String.class);
+
+        createdUsers = new ArrayList<>();
+        responses = new ArrayList<>();
 
         for (Map<String, String> userData : usuariosData) {
+            expectedUser = new Usuario();
             expectedUser.setUsername(userData.get("username"));
             expectedUser.setPassword(userData.get("password"));
             expectedUser.setFirstName(userData.get("firstName"));
             expectedUser.setLastName(userData.get("lastName"));
             expectedUser.setEmail(userData.get("email"));
             expectedUser.setPhone(userData.get("phone"));
-            expectedUser.setStatus(Integer.parseInt(userData.get("status")));
-
-            System.out.println("Este é o usuário esperado: " + usuariosData.toString());
-
-
+            expectedUser.setUserStatus(Integer.parseInt(userData.get("userStatus")));
+            createdUsers.add(expectedUser);
+            System.out.println("Estes são os usuários para serem criados: " + createdUsers);
         }
     }
 
-    @Quando("preformo a criação dos usuarios")
-    public void preformo_a_criação_dos_usuarios() {
-        response = usuarioApi.createUserMap((Map<String, String>) expectedUser);
+    @Quando("preformo a criacao dos usuarios")
+    public void preformo_a_criacao_dos_usuarios() {
+        responses = new ArrayList<>(); // Certifique-se de inicializar a lista de respostas
+
+        for (Usuario user : createdUsers) {
+            Response response = usuarioApi.createUser(user);
+            responses.add(response);
+        }
+
+        // Como você quer validar os dados, podemos usar a última resposta na lista para simplificar
+        useResponse = responses.get(responses.size() - 1);
     }
 
-    @Entao("valido os dados do usuario criado")
-    public void valido_os_dados_do_usuario_criado(List<Map<String, String>> usuariosData) {
-        for (Map<String, String> userData : usuariosData) {
-            assertThat("Nome de usuário deve ser válido", usuarioApi.getUsername(expectedUser), is(userData.get("username")));
-            // Adicione outras validações de dados conforme necessário
+
+    @Entao("valido os dados dos usuarios criados")
+    public void valido_os_dados_dos_usuarios_criados() {
+        for (Usuario createdUser : createdUsers) {
+
+
+            assertThat("Valida Content-Type", useResponse.contentType(), equalTo(expectedContentType));
+            assertThat("Valida HTTP Status", useResponse.statusCode(), equalTo(HttpStatus.SC_OK));
+            assertThat("Valida Username", useResponse.path("username"), equalTo(createdUser.getUsername()));
+            assertThat("Valida password", useResponse.path("password"), equalTo(createdUser.getPassword()));
+            assertThat("Valida firstName", useResponse.path("firstName"), equalTo(createdUser.getFirstName()));
+            assertThat("Valida lastName", useResponse.path("lastName"), equalTo(createdUser.getLastName()));
+            assertThat("Valida email", useResponse.path("email"), equalTo(createdUser.getEmail()));
+            assertThat("Valida phone", useResponse.path("phone"), equalTo(createdUser.getPhone()));
+            assertThat("Valida UserStatus", useResponse.path("userStatus"), equalTo(createdUser.getUserStatus()));
+
         }
     }
-
-
-
 
 }

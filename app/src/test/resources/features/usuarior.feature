@@ -1,33 +1,22 @@
-#language: pt
+# language: pt
 Funcionalidade: Criacao e Exibicao de Usuario
 
 
-@deleteUser
-Cenario: Criar usuario eficaz
+  Esquema do Cenario: Criacao e Exibicao de Usuario
 
-Quando criar um usuario
-Entao valido usuario criado
+    Dado que envio dados para a criacao do usuario
+      | id   | username   | password   | firstName   | lastName   | email   | phone   | status   | HttpStatus   | MSG |
+      | <id> | <username> | <password> | <firstName> | <lastName> | <email> | <phone> | <status> | <HttpStatus> | <MSG> |
 
-Esquema do Cenario: Criacao e Exibicao de Usuario
+    Quando preformo a criacao dos usuarios
+    Entao valido os dados dos usuarios criados
 
-Dado que envio dados para a criacao do usuario
-        | username         | <username>   |
-        | password         | <password>   |
-        | firstName        | <firstName>  |
-        | lastName         | <lastName>   |
-        | email            | <email>      |
-        | phone            | <phone>      |
-        | status           | <status>     |
-        | HttpStatus       | <HttpStatus> |
+    Exemplos: Criacao e Exibicao de Usuario com sucesso
+      | id   | username | password | firstName | lastName  | email             | phone       | status | HttpStatus | MSG |
+      | 3766 | Akiles   | Aki31@32 | Antonio   | Akino     | Aki@mailnator.com | 19994334200 | 1      | 200        |     |
+      | 0007 | Jupiter  | @JP@32   | João      | Pitolomeu | Jup@mailnator.com | 19994334333 | 1      | 200        |     |
 
-
-
-
-Quando preformo a criação dos usuarios
-Entao valido os dados do usuarios criados
-
-Exemplos:
-| username | password | firstName | lastName | email              | phone     | status | HttpStatus |
-| Akiles   | Aki31@32 | Antonio   | Akino    | Aki@mailnator.com  | 194334200 | 1      | 200              |
-| Outro    | Senha123 | Joao      | Silva    | joao@mailnator.com | 987654321 | 1      | 200              |
-
+    Exemplos: Criacao e Exibicao de Usuario sem sucesso
+      | id   | username      | password | firstName | lastName | email               | phone        | status | HttpStatus | MSG|
+      | 7733 | SemUserStatus | Aki31@32 | Not       | StatuId  | NoSId@mailnator.com | 1999435463   |        | 400        | "Input error: unable to convert input to io.swagger.petstore.model.User"  |
+      |      | CaraSemID     | 822626   | Não       | ID       | NoId@mailnator.com  | 199943383763 | 1      | 400        | "Input error: unable to convert input to io.swagger.petstore.model.User"   |

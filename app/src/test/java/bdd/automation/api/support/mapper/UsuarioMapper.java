@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class UsuarioMapper {
 
-    public static Map<String, String> mapUsuarioToMap(Usuario usuario) {
+    public static Map<String, String> mapToUsuario(Usuario usuario) {
         Map<String, String> userData = new HashMap<>();
         userData.put("username", usuario.getUsername());
         userData.put("password", usuario.getPassword());

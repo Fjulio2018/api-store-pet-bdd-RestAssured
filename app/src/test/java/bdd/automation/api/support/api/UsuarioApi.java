@@ -7,8 +7,6 @@ import org.apache.http.HttpStatus;
 import java.util.Arrays;
 import java.util.List;
 
-import java.util.Map;
-
 import static io.restassured.RestAssured.given;
 
 public class UsuarioApi {
@@ -21,27 +19,22 @@ public class UsuarioApi {
     public UsuarioApi() {
     }
 
-    public void createUser(Usuario user) {
-
-        given().
-                body(user).
-                when().
-                post(CREATED_USER_ENDPOINT).
-                then().
-                statusCode(HttpStatus.SC_OK);
-
-
-    }
-
-    public Response createUserMap(Map<String, String> user) {
-        return given()
+    public Response createUser(Usuario user) {
+        Response response = given()
                 .body(user)
                 .when()
-                .post(CREATED_USER_ENDPOINT);
+                .post(CREATED_USER_ENDPOINT)
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .response();
+
+        return response;
     }
 
 
-    public String getUsername(Usuario user) {
+
+    public Response getUsername(Usuario user) {
         return given().
                 pathParam("name", user.getUsername()).
                 when().
