@@ -9,6 +9,7 @@ import io.cucumber.java.pt.Entao;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -20,63 +21,100 @@ public class UsuarioStepDefinitions {
 
     private final UsuarioApi usuarioApi = new UsuarioApi();
     private Usuario expectedUser;
-    private List<Usuario> createdUsers;
+    private List<Usuario> createrUsers;
     private List<Response> responses;
     Response useResponse;
     String expectedContentType = "application/json";
+
+    String MSG_ERROR ;
+
+
 
 
     @Dado("que envio dados para a criacao do usuario")
     public void que_envio_dados_para_a_criacao_do_usuario(DataTable dataTable) {
         List<Map<String, String>> usuariosData = dataTable.asMaps(String.class, String.class);
 
-        createdUsers = new ArrayList<>();
+        createrUsers = new ArrayList<>();
         responses = new ArrayList<>();
 
+
         for (Map<String, String> userData : usuariosData) {
+
+
+            MSG_ERROR = userData.get("MSG");
             expectedUser = new Usuario();
+
+            String id = userData.get("id");
+            if(!(id == null)) {
+                expectedUser.setId(userData.get("id"));
+            }else {
+                expectedUser.setId(" ");
+            };
+
             expectedUser.setUsername(userData.get("username"));
             expectedUser.setPassword(userData.get("password"));
             expectedUser.setFirstName(userData.get("firstName"));
             expectedUser.setLastName(userData.get("lastName"));
             expectedUser.setEmail(userData.get("email"));
             expectedUser.setPhone(userData.get("phone"));
-            expectedUser.setUserStatus(Integer.parseInt(userData.get("userStatus")));
-            createdUsers.add(expectedUser);
-            System.out.println("Estes são os usuários para serem criados: " + createdUsers);
+
+
+            String userStatus = userData.get("userStatus");
+                    if(!(userStatus == null)) {
+                        expectedUser.setUserStatus(userStatus);
+                    }else {
+                        expectedUser.setUserStatus(" ");
+                    };
+
+
+            createrUsers.add(expectedUser);
+            System.out.println("Estes sao o dado do Step / createrUsers: " + createrUsers);
         }
     }
 
+
     @Quando("preformo a criacao dos usuarios")
     public void preformo_a_criacao_dos_usuarios() {
-        responses = new ArrayList<>(); // Certifique-se de inicializar a lista de respostas
+        responses = new ArrayList<>();
 
-        for (Usuario user : createdUsers) {
+        for (Usuario user : createrUsers) {
             Response response = usuarioApi.createUser(user);
             responses.add(response);
         }
 
-        // Como você quer validar os dados, podemos usar a última resposta na lista para simplificar
         useResponse = responses.get(responses.size() - 1);
     }
 
 
     @Entao("valido os dados dos usuarios criados")
     public void valido_os_dados_dos_usuarios_criados() {
-        for (Usuario createdUser : createdUsers) {
+        for (Usuario createrUser : createrUsers) {
 
 
             assertThat("Valida Content-Type", useResponse.contentType(), equalTo(expectedContentType));
             assertThat("Valida HTTP Status", useResponse.statusCode(), equalTo(HttpStatus.SC_OK));
-            assertThat("Valida Username", useResponse.path("username"), equalTo(createdUser.getUsername()));
-            assertThat("Valida password", useResponse.path("password"), equalTo(createdUser.getPassword()));
-            assertThat("Valida firstName", useResponse.path("firstName"), equalTo(createdUser.getFirstName()));
-            assertThat("Valida lastName", useResponse.path("lastName"), equalTo(createdUser.getLastName()));
-            assertThat("Valida email", useResponse.path("email"), equalTo(createdUser.getEmail()));
-            assertThat("Valida phone", useResponse.path("phone"), equalTo(createdUser.getPhone()));
-            assertThat("Valida UserStatus", useResponse.path("userStatus"), equalTo(createdUser.getUserStatus()));
+            assertThat("Valida ID", useResponse.path("id"),equalTo(Integer.valueOf(createrUser.getId())));
+            assertThat("Valida Username", useResponse.path("username"), equalTo(createrUser.getUsername()));
+            assertThat("Valida password", useResponse.path("password"), equalTo(createrUser.getPassword()));
+            assertThat("Valida firstName", useResponse.path("firstName"), equalTo(createrUser.getFirstName()));
+            assertThat("Valida lastName", useResponse.path("lastName"), equalTo(createrUser.getLastName()));
+            assertThat("Valida email", useResponse.path("email"), equalTo(createrUser.getEmail()));
+            assertThat("Valida phone", useResponse.path("phone"), equalTo(createrUser.getPhone()));
+            assertThat("Valida UserStatus", useResponse.path("userStatus"), equalTo(Integer.valueOf(createrUser.getUserStatus())));
 
         }
     }
+
+    @Entao("valido retornos e mensagens de erro")
+    public void valido_retornos_e_mensagens_de_erro() {
+
+
+        assertThat("Valida HTTP Status", useResponse.statusCode(), equalTo(HttpStatus.SC_BAD_REQUEST));
+
+        assertThat("Valida UserStatus", useResponse.path("message"), equalTo(MSG_ERROR.toString()));
+
+    }
+
 
 }

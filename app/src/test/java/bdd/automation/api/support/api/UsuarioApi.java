@@ -20,14 +20,19 @@ public class UsuarioApi {
     }
 
     public Response createUser(Usuario user) {
+
+        System.out.println("Estes dados sao do envio API: " + user.toString());
         Response response = given()
                 .body(user)
+                .log().all()
                 .when()
                 .post(CREATED_USER_ENDPOINT)
                 .then()
-                .statusCode(HttpStatus.SC_OK)
+                .log().all()
                 .extract()
-                .response();
+                .response()
+
+                ;
 
         return response;
     }

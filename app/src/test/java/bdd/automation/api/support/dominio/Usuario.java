@@ -1,9 +1,6 @@
 package bdd.automation.api.support.dominio;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 @Data
@@ -12,8 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class Usuario {
-    @Builder.Default
-    private int id = 2024 ;
+
+
+    private String id   ;
     @Builder.Default
     private String username = "Nick";
     @Builder.Default
@@ -26,8 +24,7 @@ public class Usuario {
     private String email= "nik.weg@malinator.com";
     @Builder.Default
     private String phone = "199923343464";
-    @Builder.Default
-    private int userStatus = 1;
+    private String userStatus ;
 
 
 }
