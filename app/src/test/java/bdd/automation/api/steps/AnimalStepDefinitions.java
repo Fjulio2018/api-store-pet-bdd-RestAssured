@@ -2,6 +2,7 @@ package bdd.automation.api.steps;
 
 import bdd.automation.api.support.api.AnimalApi;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.es.Dado;
 import io.cucumber.java.it.Quando;
 import io.cucumber.java.pt.Entao;
@@ -9,6 +10,7 @@ import io.cucumber.java.pt.Entao;
 import bdd.automation.api.support.dominio.Animal;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
@@ -55,5 +57,27 @@ public class AnimalStepDefinitions {
     }
 
 
+    @Dado("que tenha os dados dos animais")
+    public void que_tenha_os_dados_dos_animais(DataTable dataTable) {
+        List<Map<String, String>> animaisData = dataTable.asMaps(String.class, String.class);
+
+        for (Map<String, String> animalData : animaisData) {
+            System.out.println("ID do animal: " + animalData.get("id"));
+
+        }
+    }
+
+
+    @Quando("performar a criacao")
+    public void performar_a_criacao() {
+        System.out.println("Performar a criacao");
+
+    }
+
+    @Entao("validomos a criacao")
+    public void validomos_a_criacao() {
+        System.out.println("validar a criacao");
+
+    }
 
 }
